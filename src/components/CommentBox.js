@@ -18,27 +18,38 @@ class CommentBox extends Component {
     this.setState({ comment: '' });
   };
 
+  fetchHandler = (e) => {
+    e.preventDefault();
+
+    this.props.fetchComments();
+  }
+
   render() {
     const { comment } = this.state;
 
     return (
-      <form
-        action=""
-        onSubmit={this.submitHandler}
-      >
-        <h4>Add a Comment</h4>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          onChange={(e) => this.commentChangesHandler(e)}
-          value={comment}
-        />
+      <div>
+        <form
+          action=""
+          onSubmit={this.submitHandler}
+        >
+          <h4>Add a Comment</h4>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            onChange={(e) => this.commentChangesHandler(e)}
+            value={comment}
+          />
+          <div>
+            <button>Submit Comment</button>
+          </div>
+        </form>
         <div>
-          <button>Submit Comment</button>
+          <button className="fetch-comments" onClick={this.fetchHandler}>Fetch Comments</button>
         </div>
-      </form>
+      </div>
     );
   }
 }
@@ -46,6 +57,7 @@ class CommentBox extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveComment: (comment) => dispatch(actions.saveComment(comment)),
+    fetchComments: () => dispatch(actions.fetchComments()),
   }
 };
 
